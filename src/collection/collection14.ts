@@ -7,6 +7,6 @@ export type User = {
 }
 
 export function getNames(users: User[]): string[] {
-
+	return users.map(user => user.name);
 }
 
