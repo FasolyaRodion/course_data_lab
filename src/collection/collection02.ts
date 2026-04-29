@@ -3,11 +3,11 @@
 */
 
 export const obj = {
-  a: 1,
-  b: 2,
-  c: 3,
-  [Symbol.iterator]() {
-
-  }
+	a: 1,
+	b: 2,
+	c: 3,
+	*[Symbol.iterator]() {
+		yield* Object.values(this);
+	}
 };
 
