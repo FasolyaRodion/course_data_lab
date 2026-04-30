@@ -2,10 +2,14 @@
 	Добавьте декоратор для преобразования строки в объект Date.
 */
 
+import "reflect-metadata";
+import { Type } from "class-transformer";
 import { User } from "./user";
 
 export class Session {
+  @Type(() => User)
   user: User; // Требует декоратора
+  @Type(() => Date)
   loginAt: Date; // Требует декоратора Date
 
   constructor(user: User, loginAt: Date) {
