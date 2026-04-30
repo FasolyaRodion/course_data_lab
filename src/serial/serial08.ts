@@ -1,6 +1,5 @@
-/* 	
-	Обеспечьте сериализацию и десериализацию объектов классов Circle, Rectangle и Drawing
-*/
+import "reflect-metadata";
+import { Type } from "class-transformer";
 
 export abstract class Shape {
   abstract area(): number;
@@ -33,6 +32,16 @@ export class Rectangle extends Shape {
 export class Drawing {
   name: string;
 
+  @Type(() => Object, {
+    keepDiscriminatorProperty: true,
+    discriminator: {
+      property: 'type',
+      subTypes: [
+        { value: Circle, name: 'circle' },
+        { value: Rectangle, name: 'rectangle' },
+      ],
+    },
+  })
   shapes: Shape[];
   constructor(name: string, shapes: Shape[]) {
     this.name = name;
