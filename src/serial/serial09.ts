@@ -3,10 +3,14 @@
 */
 
 
+import "reflect-metadata";
+import { Type } from "class-transformer";
+
 export class TreeNode {
   value: string;
   
-  children: TreeNode[];
+  @Type(() => TreeNode)
+  children: TreeNode[]; // Требует декоратора для рекурсии
 
   constructor(value: string) {
 	this.value = value;
