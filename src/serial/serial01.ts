@@ -2,11 +2,15 @@
 	Дан класс Order и сериализованные данные. Добавьте правильный декоратор к полю customer, чтобы метод getOrderInfo() работал.
 */
 
+import "reflect-metadata";
+import { Type } from "class-transformer";
 import { User } from "./user";
 
 export class Order {
   id: number;
   product: string;
+
+  @Type(() => User)
   customer: User; // Требует декоратора
 
   constructor(
