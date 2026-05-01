@@ -10,7 +10,11 @@ export function validateBookStructure(xml: string): boolean {
   const parser = new SAXParser(true);
   let isValid = true;
 
-  // TODO: Если встречается тег 'book' без атрибута 'id', установите isValid = false
+  parser.onopentag = (tag) => {
+    if (tag.name === 'book' && !tag.attributes.id) {
+      isValid = false;
+    }
+  };
 
   parser.write(xml).close();
   return isValid;
