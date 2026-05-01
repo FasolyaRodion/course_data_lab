@@ -5,7 +5,7 @@
 import { select } from 'xpath';
 
 export function findMenuListItems(doc: Document): Node[] {
-  const query = ""; // Тут нужно написать XPath запрос
+  const query = "//ul[@class='menu']/li";
   return select(query, doc) as Node[];
 }
 
