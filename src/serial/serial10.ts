@@ -32,5 +32,14 @@ export function findProductsInCategory(
   xmlDoc: Document,
   categoryName: string
 ): Element[] {
-
+	const categories = xmlDoc.getElementsByTagName('category');
+	for (let i = 0; i < categories.length; i++) {
+		if (categories[i].getAttribute('name') === categoryName) {
+			const productsElement = categories[i].getElementsByTagName('products')[0];
+			if (productsElement) {
+				return Array.from(productsElement.getElementsByTagName('product'));
+			}
+		}
+	}
+	return [];
 }
