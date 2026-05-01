@@ -5,6 +5,6 @@
 import { select } from "xpath";
 
 export function findErrorElements(doc: Document): Node[] {
-  const query = ""; // Тут нужно написать XPath запрос
+  const query = "//*[contains(@class, 'error')]";
   return select(query, doc) as Node[];
 }
