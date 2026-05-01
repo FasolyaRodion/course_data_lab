@@ -5,6 +5,6 @@
 import { select } from 'xpath';
 
 export function findPrimaryButtons(doc: Document): Node[] {
-  const query = ""; // Тут нужно написать XPath запрос
+  const query = "//button[contains(concat(' ', normalize-space(@class), ' '), ' primary ')]";
   return select(query, doc) as Node[];
 }
