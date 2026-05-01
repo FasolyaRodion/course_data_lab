@@ -5,6 +5,6 @@
 import { select } from "xpath";
 
 export function findOnlineUsers(doc: Document): Node[] {
-  const query = ""; // Тут нужно написать XPath запрос
+  const query = "//*[@data-type='user' and contains(concat(' ', normalize-space(@class), ' '), ' online ')]";
   return select(query, doc) as Node[];
 }
