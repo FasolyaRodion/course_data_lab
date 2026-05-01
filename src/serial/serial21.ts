@@ -5,6 +5,6 @@
 import { select } from "xpath";
 
 export function findDirectDivChildren(doc: Document): Node[] {
-  const query = ""; // Тут нужно написать XPath запрос
+  const query = "//*[@id='container']/div";
   return select(query, doc) as Node[];
 }
