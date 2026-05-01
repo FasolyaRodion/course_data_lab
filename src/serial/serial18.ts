@@ -5,6 +5,6 @@
 import { select } from "xpath";
 
 export function findElementsWithExactText(doc: Document): Node[] {
-  const query = ""; // Тут нужно написать XPath запрос
+  const query = "//*[text()='Submit']";
   return select(query, doc) as Node[];
 }
