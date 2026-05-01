@@ -28,5 +28,6 @@ export interface User {
 }
 
 export function getAllUserEmails(xmlDoc: Document): string[] {
-
+	const emailElements = xmlDoc.getElementsByTagName('email');
+	return Array.from(emailElements).map(el => el.textContent || '');
 }
