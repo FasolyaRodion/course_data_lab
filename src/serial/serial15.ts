@@ -5,6 +5,6 @@
 import { select } from 'xpath';
 
 export function findAllTitleElements(doc: Document): Node[] {
-  const query = "" 	// Тут нужно написать XPath запрос
+  const query = "//title"
   return select(query, doc) as Node[];
 }
