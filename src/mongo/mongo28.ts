@@ -25,6 +25,8 @@ export interface SearchResult {
 export async function search_articles(db: Db, searchText: string): Promise<SearchResult[]> {
 	// TODO: Найти статьи по текстовому поиску и отсортировать по релевантности
 	return await db.collection("articles").aggregate([
-
+		{ $match: { $text: { $search: searchText } } },
+		{ $addFields: { score: { $meta: "textScore" } } },
+		{ $sort: { score: -1 } }
 	]).toArray() as SearchResult[]
 }
