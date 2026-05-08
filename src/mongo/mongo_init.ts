@@ -1,6 +1,6 @@
 import { Db, MongoClient, type MongoClientOptions } from "mongodb"
 
-const CONNECTION = "mongodb://root:example@mongo:27017/"
+const CONNECTION = "mongodb://root:example@localhost:27017/"
 
 
 export const client = new MongoClient(

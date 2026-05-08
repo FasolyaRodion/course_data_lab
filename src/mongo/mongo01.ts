@@ -12,6 +12,6 @@ export class Book {
 }
 
 export async function add_books(db: Db, books: Book[]) {
-    // TODO: Создать коллекцию "books" и добавить массив книг
+    await db.collection('books').insertMany(books);
 }
 
