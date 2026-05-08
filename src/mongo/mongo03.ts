@@ -12,6 +12,6 @@ export class Task {
 }
 
 export async function complete_task(db: Db, taskDescription: string) {
-    // TODO: Найти задачу по описанию и установить completed = true
-	await db.collection("tasks")
+    // Найти задачу по описанию и установить completed = true
+	await db.collection("tasks").updateOne({ description: taskDescription }, { $set: { completed: true } })
 }
