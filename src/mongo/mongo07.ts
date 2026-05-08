@@ -13,7 +13,11 @@ export class Movie {
 
 export async function find_top_rated_movies(db: Db, limit: number): Promise<Movie[]> {
     // TODO: Найти топ-N фильмов по рейтингу (отсортировать по убыванию рейтинга)
-	return db.collection("movies")
+	return (await db.collection("movies")
+		.find()
+		.sort({ rating: -1 })
+		.limit(limit)
+		.toArray()) as any
 }
 
 
