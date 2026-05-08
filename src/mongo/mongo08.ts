@@ -14,5 +14,5 @@ export class Article {
 export async function count_published_articles(db: Db, category?: string): Promise<number> {
     // TODO: Посчитать количество опубликованных статей
     // Если передан category, считать только для этой категории
-    return await db.collection("articles")
+    return await db.collection("articles").countDocuments({ published: true, ...(category ? { category } : {}) })
 }
