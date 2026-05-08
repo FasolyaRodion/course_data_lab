@@ -35,7 +35,19 @@ export async function get_transaction_analytics(db: Db): Promise<TransactionAnal
     // - byType: количество транзакций по типам
 	// Используя $facet
 	const result = await db.collection("transactions").aggregate([
-        
+        {
+            $facet: {
+                totals: [
+                    { $group: { _id: "$type", totalAmount: { $sum: "$amount" } } }
+                ],
+                byCategory: [
+                    { $group: { _id: "$category", totalAmount: { $sum: "$amount" } } }
+                ],
+                byType: [
+                    { $group: { _id: "$type", count: { $sum: 1 } } }
+                ]
+            }
+        }
     ]).toArray()
 
     return result[0] as TransactionAnalytics
