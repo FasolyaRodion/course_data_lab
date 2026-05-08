@@ -13,5 +13,5 @@ export class BlogPost {
 
 export async function find_posts_by_keyword(db: Db, keyword: string): Promise<BlogPost[]> {
     // TODO: Найти посты, в заголовке или содержании которых есть указанное ключевое слово
-	return db.collection("posts")
+	return (await db.collection("posts").find({ $or: [{ title: { $regex: keyword, $options: 'i' } }, { content: { $regex: keyword, $options: 'i' } }] }).toArray()) as any as BlogPost[]
 }
