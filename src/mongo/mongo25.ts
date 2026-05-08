@@ -76,6 +76,42 @@ export async function get_department_details(db: Db): Promise<DepartmentDetails[
                 as: "projects"
             }
         },
-        
+        {
+            $addFields: {
+                totalBudget: { $sum: "$projects.budget" },
+                employeeCount: { $size: "$employees" }
+            }
+        },
+        {
+            $project: {
+                _id: 1,
+                name: 1,
+                manager: 1,
+                employees: {
+                    $map: {
+                        input: "$employees",
+                        as: "emp",
+                        in: {
+                            name: "$$emp.name",
+                            position: "$$emp.position",
+                            salary: "$$emp.salary"
+                        }
+                    }
+                },
+                projects: {
+                    $map: {
+                        input: "$projects",
+                        as: "proj",
+                        in: {
+                            name: "$$proj.name",
+                            budget: "$$proj.budget",
+                            status: "$$proj.status"
+                        }
+                    }
+                },
+                totalBudget: 1,
+                employeeCount: 1
+            }
+        }
     ]).toArray() as DepartmentDetails[]
 }
