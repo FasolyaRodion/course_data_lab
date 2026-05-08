@@ -13,5 +13,5 @@ export class Employee {
 
 export async function find_high_salary_employees(db: Db, minSalary: number): Promise<Employee[]> {
     // TODO: Найти всех сотрудников с зарплатой больше minSalary
-	return db.collection("employees")
+	return await db.collection("employees").find({ salary: { $gt: minSalary } }).toArray() as Employee[]
 }
