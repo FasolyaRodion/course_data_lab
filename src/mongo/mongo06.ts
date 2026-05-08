@@ -13,7 +13,7 @@ export class Order {
 
 export async function update_order_status(db: Db, oldStatus: string, newStatus: string) {
     // TODO: Обновить статус всех заказов с oldStatus на newStatus
-	 db.collection("orders")
+	await db.collection("orders").updateMany({ status: oldStatus }, { $set: { status: newStatus } })
 }
 
 
