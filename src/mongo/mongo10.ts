@@ -13,5 +13,5 @@ export class Player {
 
 export async function increase_player_score(db: Db, playerName: string, points: number) {
     // TODO: Увеличить счет игрока на указанное количество очков
-	db.collection("players")
+	await db.collection("players").updateOne({ name: playerName }, { $inc: { score: points } })
 }
