@@ -8,6 +8,21 @@ export interface CourseWithStudentCount {
 }
 
 export async function find_courses_with_student_count(): Promise<CourseWithStudentCount[]> {
-    // TODO: Найти все курсы с количеством уникальных студентов, имеющих оценки по этому курсу
-    // Вернуть массив курсов с дополнительным полем studentCount
+    const groupByResult = await prisma.grade.groupBy({
+      by: ['courseId'] as const,
+      _count: { studentId: true },
+    }) as Array<{ courseId: number; _count: { studentId: number } }>;
+
+    const countMap = new Map<number, number>();
+    groupByResult.forEach(g => {
+      countMap.set(g.courseId, g._count.studentId);
+    });
+
+    const courses = await prisma.course.findMany();
+    return courses.map((c: { id: number; title: string; description: string | null }) => ({
+      id: c.id,
+      title: c.title,
+      description: c.description,
+      studentCount: countMap.get(c.id) ?? 0,
+    }));
 }
